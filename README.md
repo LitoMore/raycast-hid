@@ -2,6 +2,11 @@
 
 Access USB HID devices from Raycast
 
+## Background
+
+Due to the problem of Raycast building extension, you need to manually copy HID prebuilds to your extension folder. Also, Raycast only allows attachments to be placed in the `assets` directory.
+However, `node-hid` can only find driver files in its own directory. This package prepares a set of methods to facilitate your HID-related development in Raycast.
+
 ## Install
 
 ```shell
