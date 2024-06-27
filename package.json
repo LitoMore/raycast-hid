@@ -1,0 +1,41 @@
+{
+	"name": "raycast-hid",
+	"version": "0.0.0",
+	"description": "Access USB HID devices from Raycast",
+	"main": "distribution/index.js",
+	"bin": {
+		"raycast-hid-setup": "distribution/setup.js"
+	},
+	"types": "distribution",
+	"files": [
+		"distribution"
+	],
+	"scripts": {
+		"prepublishOnly": "npm run build",
+		"build": "del-cli distribution && tsc && chmod +x distribution/setup.js",
+		"dev": "del-cli distribution && tsc --watch && chmod +x distribution/setup.js",
+		"test": "xo"
+	},
+	"keywords": [
+		"raycast",
+		"extension",
+		"node-hid",
+		"utilities"
+	],
+	"author": "LitoMore",
+	"license": "MIT",
+	"peerDependencies": {
+		"@raycast/api": ">=1"
+	},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "^5.0.0",
+		"@types/node": "^20.12.12",
+		"del-cli": "^5.1.0",
+		"typescript": "^5.4.5",
+		"xo": "^0.58.0"
+	},
+	"dependencies": {
+		"node-hid": "^3.1.0",
+		"read-pkg-up": "^7.0.1"
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"$schema": "https://www.raycast.com/schemas/extension.json",
+	"name": "raycats-hid",
+	"title": "Raycats HID",
+	"description": "Test cases for the most common usage of the utils",
+	"icon": "raycast-hid-icon.png",
+	"author": "LitoMore",
+	"license": "MIT",
+	"commands": [
+		{
+			"name": "main",
+			"title": "Raycast HID",
+			"description": "Test Raycast HID behaviors",
+			"mode": "view"
+		}
+	],
+	"dependencies": {
+		"@raycast/api": "^1.77.1",
+		"raycast-hid": "file:../",
+		"react": "^18.3.1"
+	},
+	"devDependencies": {
+		"@types/node": "20.8.10",
+		"@types/react": "^18.3.3",
+		"typescript": "^5.4.5"
+	},
+	"scripts": {
+		"build": "ray build -e dist",
+		"dev": "ray develop"
+	}
+}
