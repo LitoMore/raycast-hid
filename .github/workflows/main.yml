@@ -10,6 +10,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npm run build
-      - run: npm test
+      - name: Build package
+        run: |
+          npm install
+          npm run build
+      - name: Build example extension
+        working-directory: ./example
+        run: |
+          npm install
+          npm run build
+      - name: Test
+        run: npm test
+
+
