@@ -14,7 +14,7 @@ npm i raycast-hid
 
 Run `npx raycast-hid-setup` under your extension project directory to prepare HID prebuilds to the `assets` folder to your extension.
 
-### 2. Prepare prebuilds bebofre running your extension
+### 2. Prepare prebuilds before running your extension
 
 Remember to run `preparePrebuilds()` before you use any function from the HID.
 
