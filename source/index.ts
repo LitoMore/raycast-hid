@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs, {constants} from 'node:fs/promises';
 import path from 'node:path';
 import {sync as readPackageUpSync} from 'read-pkg-up';
 
@@ -14,11 +14,20 @@ export const preparePrebuilds = async () => {
 	const extensionRoot = path.dirname(packageUp.path);
 	const source = path.join(extensionRoot, 'assets', 'prebuilds');
 	const destination = path.join(extensionRoot, 'prebuilds');
-	const hasPrebuilds = await fs
-		.access(destination)
-		.then(() => true)
-		.catch(() => false);
+	const macOsBuildPaths = ['HID-darwin-arm64', 'HID-darwin-x64'];
+	const prebuildsStatuses = await Promise.all(
+		macOsBuildPaths.map(async (buildPath) =>
+			fs
+				.access(
+					path.join(destination, buildPath, 'node-napi-v3.node'),
+					// eslint-disable-next-line no-bitwise
+					constants.R_OK | constants.W_OK,
+				)
+				.then(() => true)
+				.catch(() => false),
+		),
+	);
 
-	if (hasPrebuilds) return;
+	if (prebuildsStatuses.every(Boolean)) return;
 	await fs.cp(source, destination, {force: true, recursive: true});
 };
