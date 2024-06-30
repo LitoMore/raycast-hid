@@ -15,11 +15,12 @@ export const preparePrebuilds = async () => {
 	const source = path.join(extensionRoot, 'assets', 'prebuilds');
 	const destination = path.join(extensionRoot, 'prebuilds');
 	const macOsBuildPaths = ['HID-darwin-arm64', 'HID-darwin-x64'];
+	const nodeNapiV3Path = 'node-napi-v3.node';
 	const prebuildsStatuses = await Promise.all(
 		macOsBuildPaths.map(async (buildPath) =>
 			fs
 				.access(
-					path.join(destination, buildPath, 'node-napi-v3.node'),
+					path.join(destination, buildPath, nodeNapiV3Path),
 					// eslint-disable-next-line no-bitwise
 					constants.R_OK | constants.W_OK,
 				)
@@ -29,5 +30,17 @@ export const preparePrebuilds = async () => {
 	);
 
 	if (prebuildsStatuses.every(Boolean)) return;
-	await fs.cp(source, destination, {force: true, recursive: true});
+	await fs.rm(destination, {force: true, recursive: true});
+	await Promise.all(
+		macOsBuildPaths.map(async (buildPath) =>
+			fs.cp(
+				path.join(source, buildPath, nodeNapiV3Path),
+				path.join(destination, buildPath, nodeNapiV3Path),
+				{
+					force: true,
+					recursive: true,
+				},
+			),
+		),
+	);
 };
