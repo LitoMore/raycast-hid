@@ -1,6 +1,6 @@
 {
 	"name": "raycast-hid",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Access USB HID devices from Raycast",
 	"main": "distribution/index.js",
 	"bin": {
